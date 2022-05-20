@@ -54,7 +54,6 @@ describe("Sample Token", function () {
     const [owner, addr1] = await ethers.getSigners();
     var transferAmount = ethers.utils.parseEther("5000",18);
     await this.sampleToken.connect(owner).approve(addr1.address, transferAmount);
-    expect(await this.sampleToken.allowance(owner.address, addr1.address)).to.equal(transferAmount);
     await this.sampleToken.connect(addr1).transferFrom(owner.address, addr1.address, transferAmount);
     expect(await this.sampleToken.balanceOf(addr1.address)).to.equal(transferAmount);
   });
