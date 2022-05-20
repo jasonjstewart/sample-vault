@@ -3,11 +3,17 @@ const { ethers } = require("hardhat");
 
 let sampleToken;
 
+//CONSTANTS
+let numTokens = ethers.utils.parseEther("10000",18);
+let tokenName = "SampleToken";
+let tokenSymbol = "SMP";
+
 describe("Sample Token", function () {
-  var numTokens = ethers.utils.parseEther("10000",18);
+
+
   beforeEach(async function () {
     const SampleToken = await hre.ethers.getContractFactory("SampleToken");
-    this.sampleToken = await SampleToken.deploy(numTokens);
+    this.sampleToken = await SampleToken.deploy(numTokens, tokenName, tokenSymbol);
   
     await this.sampleToken.deployed();
   });
@@ -17,11 +23,11 @@ describe("Sample Token", function () {
   });
 
   it("Check name", async function () {
-    expect(await this.sampleToken.name()).to.equal("Sample Token");
+    expect(await this.sampleToken.name()).to.equal(tokenName);
   });
 
   it("Check symbol", async function () {
-    expect(await this.sampleToken.symbol()).to.equal("SMP");
+    expect(await this.sampleToken.symbol()).to.equal(tokenSymbol);
   });
 
   it("Check owner wallet", async function () {
